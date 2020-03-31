@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Ubuntu CUDA Install (Ubuntu 18.04) - Webber.Kuo Blog</title>
+
+
+    <meta name="description" content="前言本篇將介紹Ubuntu 18.04安裝CUDA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu CUDA Install (Ubuntu 18.04)">
+<meta property="og:url" content="https://webberkuo.github.io/20190107/UbuntuCUADInstall/index.html">
+<meta property="og:site_name" content="Webber.Kuo Blog">
+<meta property="og:description" content="前言本篇將介紹Ubuntu 18.04安裝CUDA">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://webberkuo.github.io/webberkuo.github.io/webberkuo.github.io/thumbnail/20190107-UbuntuCUDAInstall/NVIDIA-CUDA.jpg">
+<meta property="article:published_time" content="2019-01-07T01:10:00.000Z">
+<meta property="article:modified_time" content="2020-03-31T05:34:03.378Z">
+<meta property="article:author" content="Webber.Kuo">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="NVIDIA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://webberkuo.github.io/webberkuo.github.io/webberkuo.github.io/thumbnail/20190107-UbuntuCUDAInstall/NVIDIA-CUDA.jpg">
+
+
+
+
+
+
+
+<link rel="icon" href="/webberkuo.github.io/images/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/webberkuo.github.io/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/webberkuo.github.io/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/webberkuo.github.io/css/style.css">
+</head>
+<!-- "remove" <body class="is-2-column"> -->
+    <!-- start -->
+    <body class="is-3-column">
+    <!--  end  --> 
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/webberkuo.github.io/">
+            
+                <img src="/webberkuo.github.io/images/logo.png" alt="Ubuntu CUDA Install (Ubuntu 18.04)" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/webberkuo.github.io/">Home</a>
+                
+                <a class="navbar-item"
+                href="/webberkuo.github.io/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/webberkuo.github.io/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/webberkuo.github.io/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/webberkuo.github.io/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/WebberKuo/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/webberkuo.github.io/thumbnail/20190107-UbuntuCUDAInstall/NVIDIA-CUDA.jpg" alt="Ubuntu CUDA Install (Ubuntu 18.04)">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <!-- "remove" <time class="level-item has-text-grey" datetime="2019-01-07T01:10:00.000Z">2019-01-07</time> -->
+                <!-- start -->
+                <time class="level-item has-text-grey" datetime="2019-01-07T01:10:00.000Z"><i class="far fa-calendar-alt">&nbsp;</i>2019-01-07</time>
+                
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-03-31T05:34:03.378Z"><i class="far fa-calendar-check">&nbsp;</i>2020-03-31</time>
+                
+                <!--  end  -->
+                
+                <div class="level-item">
+                <i class="far fa-folder-open"></i>
+                <a class="has-link-grey -link" href="/webberkuo.github.io/categories/Linux/">Linux</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/webberkuo.github.io/categories/Linux/NVIDIA/">NVIDIA</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                <i class="far fa-clock"></i>
+                    
+                    
+                    4 minutes read (About 557 words)
+                </span>
+                
+                
+                <!-- start -->
+                <div class="level is-size-7 has-text-grey">
+                    <div class="level-left">
+                        <i class="far fa-eye"></i>
+                        <span>&nbsp;</span>
+                        <span id="busuanzi_container_page_pv" style="display: inline;">
+                            <span id="busuanzi_value_page_pv">0</span>
+                        </span>
+                    </div>
+                </div>
+                <!--  end  -->
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Ubuntu CUDA Install (Ubuntu 18.04)
+            
+        </h1>
+        <div class="content">
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇將介紹Ubuntu 18.04安裝CUDA</p>
+<a id="more"></a>
+
+<p>雖然NVIDIA CUDA Toolkit裡面有包含GPU的驅動程式，但是還是建議手動另外安裝驅動程式。<br>以下範例以下列環境作為範例：</p>
+<p>OS：Uubuntu 18.04 x64<br>GPU：RTX2080Ti<br>CUDA：NVIDIA CUDA 10.2 Tookit</p>
+<h1 id="開始安裝"><a href="#開始安裝" class="headerlink" title="開始安裝"></a>開始安裝</h1><h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><h3 id="Disable-Nouveau-Nvidia-driver-on-Ubuntu"><a href="#Disable-Nouveau-Nvidia-driver-on-Ubuntu" class="headerlink" title="Disable Nouveau Nvidia driver on Ubuntu"></a>Disable Nouveau Nvidia driver on Ubuntu</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo bash -c <span class="string">"echo blacklist nouveau &gt; /etc/modprobe.d/blacklist-nvidia-nouveau.conf"</span></span><br><span class="line">$ sudo bash -c <span class="string">"echo options nouveau modeset=0 &gt;&gt; /etc/modprobe.d/blacklist-nvidia-nouveau.conf"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Confirm-the-content-of-the-new-modprobe-config-file"><a href="#Confirm-the-content-of-the-new-modprobe-config-file" class="headerlink" title="Confirm the content of the new modprobe config file"></a>Confirm the content of the new modprobe config file</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/modprobe.d/blacklist-nvidia-nouveau.conf</span><br><span class="line"></span><br><span class="line">blacklist nouveau</span><br><span class="line">options nouveau modeset=0</span><br></pre></td></tr></table></figure>
+
+<h3 id="安裝編譯器"><a href="#安裝編譯器" class="headerlink" title="安裝編譯器"></a>安裝編譯器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install gcc</span><br><span class="line">$ sudo apt-get install make</span><br></pre></td></tr></table></figure>
+
+<h2 id="NVIDIA驅動下載安裝"><a href="#NVIDIA驅動下載安裝" class="headerlink" title="NVIDIA驅動下載安裝"></a>NVIDIA驅動下載安裝</h2><h3 id="NVIDIA驅動下載"><a href="#NVIDIA驅動下載" class="headerlink" title="NVIDIA驅動下載"></a>NVIDIA驅動下載</h3><p>查了一下<a href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">CDUA Toolkit Release Note</a>，NVIDIA CUDA 10.2 支援的NVIDIA Driver版本為440.3<br>我們只要找大於440.3版本的驅動就可以了</p>
+<p>再到<a href="https://www.nvidia.com.tw/Download/index.aspx?lang=tw">NVIDIA 驅動程式下載</a>，找到相對應的驅動程式下載就好</p>
+<h3 id="NVIDIA驅動安裝"><a href="#NVIDIA驅動安裝" class="headerlink" title="NVIDIA驅動安裝"></a>NVIDIA驅動安裝</h3><p>抓下來會是一個.run檔，切換到下載的路徑，在執行這個檔案跟著指示安裝就完成了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh NVIDIA-Linux-x86_64-440.64.run</span><br></pre></td></tr></table></figure>
+
+<h3 id="測試NVIDIA驅動"><a href="#測試NVIDIA驅動" class="headerlink" title="測試NVIDIA驅動"></a>測試NVIDIA驅動</h3><p>輸入以下指令，如果有跑出下列畫面表示驅動程式有安裝完成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nvidia-smi</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 440.64       Driver Version: 440.64       CUDA Version: 10.2     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  GeForce RTX 208...  Off  | 00000000:1A:00.0 Off |                  N/A |</span><br><span class="line">| 29%   31C    P8     2W / 250W |      0MiB / 11019MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">|   1  GeForce RTX 208...  Off  | 00000000:1B:00.0 Off |                  N/A |</span><br><span class="line">| 30%   34C    P8    10W / 250W |      0MiB / 11019MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">|   2  GeForce RTX 208...  Off  | 00000000:60:00.0 Off |                  N/A |</span><br><span class="line">| 30%   34C    P8     8W / 250W |      0MiB / 11019MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">|   3  GeForce RTX 208...  Off  | 00000000:61:00.0 Off |                  N/A |</span><br><span class="line">| 30%   36C    P8    12W / 250W |      0MiB / 11019MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br></pre></td></tr></table></figure>
+
+<h2 id="NVIDIA-CUDA下載安裝"><a href="#NVIDIA-CUDA下載安裝" class="headerlink" title="NVIDIA CUDA下載安裝"></a>NVIDIA CUDA下載安裝</h2><p>NVIDIA Driver裝好後接著就可以安裝CUDA</p>
+<h3 id="NVIDIA-CUDA下載"><a href="#NVIDIA-CUDA下載" class="headerlink" title="NVIDIA CUDA下載"></a>NVIDIA CUDA下載</h3><p>到<a href="https://developer.nvidia.com/cuda-downloads">NVIDIA CUDA下載頁面</a>下載CDUA<br><img src="CUDA_Download.png" alt=""></p>
+<p>依照NVIDIA給的指令，下載CUDA</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_440.33.01_linux.run</span><br></pre></td></tr></table></figure>
+
+<h3 id="NVIDIA-CUDA安裝"><a href="#NVIDIA-CUDA安裝" class="headerlink" title="NVIDIA CUDA安裝"></a>NVIDIA CUDA安裝</h3><p>開始安裝</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh cuda_10.2.89_440.33.01_linux.run</span><br></pre></td></tr></table></figure>
+
+<p>這邊要注意的是，因為我們已經有手動安裝NVIDIA Driver所以當出現以下提示時選”n”，其跟著指示安裝就完成了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Install NVIDIA Accelerated Graphics Driver <span class="keyword">for</span> Linux-x86_64 410.48?</span><br><span class="line">(y)es/(n)o/(q)uit: n</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <!-- start -->
+        <hr style="height:1px;margin:1rem 0"/>
+        <!--  end  -->
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <!-- "remove" <span class="is-size-6 has-text-grey has-mr-7">#</span> -->
+                    <!-- start -->
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <!--  end  -->
+                    <a class="has-link-grey -link" href="/webberkuo.github.io/tags/NVIDIA/" rel="tag">NVIDIA</a>,&nbsp;<a class="has-link-grey -link" href="/webberkuo.github.io/tags/Ubuntu/" rel="tag">Ubuntu</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/webberkuo.github.io/20200114/gupmonitor/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Nvidia GPU Monitor (Grafana + NVIDIA DCGM + Prometheus)</span>
+            </a>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/webberkuo.github.io/images/webber.jpg" alt="Webber Kuo">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Webber Kuo
+                    </p>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Webber Kuo
+                    </p>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Webber Kuo
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Project Engineer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Taiwan, Taipei</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <a href="/webberkuo.github.io/archives">
+                        <p class="title has-text-weight-normal">
+                            2
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <a href="/webberkuo.github.io/categories">
+                        <p class="title has-text-weight-normal">
+                            3
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <a href="/webberkuo.github.io/tags">
+                        <p class="title has-text-weight-normal">
+                            5
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/WebberKuo/" target="_blank" rel="noopener">
+                Follow</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/WebberKuo/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Linkedin" href="https://www.linkedin.com/in/webber-kuo-736702135/">
+                
+                <i class="fab fa-linkedin"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <!-- "remove" <div class="card widget" id="toc"> -->
+    <!-- start -->
+    <div class="card widget column-left is-sticky" id="toc">
+    <!-- edn   -->
+            <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    Catalogue
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#前言">
+        <span class="has-mr-6">1</span>
+        <span>前言</span>
+        </a></li><li>
+        <a class="is-flex" href="#開始安裝">
+        <span class="has-mr-6">2</span>
+        <span>開始安裝</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#前置作業">
+        <span class="has-mr-6">2.1</span>
+        <span>前置作業</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Disable-Nouveau-Nvidia-driver-on-Ubuntu">
+        <span class="has-mr-6">2.1.1</span>
+        <span>Disable Nouveau Nvidia driver on Ubuntu</span>
+        </a></li><li>
+        <a class="is-flex" href="#Confirm-the-content-of-the-new-modprobe-config-file">
+        <span class="has-mr-6">2.1.2</span>
+        <span>Confirm the content of the new modprobe config file</span>
+        </a></li><li>
+        <a class="is-flex" href="#安裝編譯器">
+        <span class="has-mr-6">2.1.3</span>
+        <span>安裝編譯器</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#NVIDIA驅動下載安裝">
+        <span class="has-mr-6">2.2</span>
+        <span>NVIDIA驅動下載安裝</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#NVIDIA驅動下載">
+        <span class="has-mr-6">2.2.1</span>
+        <span>NVIDIA驅動下載</span>
+        </a></li><li>
+        <a class="is-flex" href="#NVIDIA驅動安裝">
+        <span class="has-mr-6">2.2.2</span>
+        <span>NVIDIA驅動安裝</span>
+        </a></li><li>
+        <a class="is-flex" href="#測試NVIDIA驅動">
+        <span class="has-mr-6">2.2.3</span>
+        <span>測試NVIDIA驅動</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#NVIDIA-CUDA下載安裝">
+        <span class="has-mr-6">2.3</span>
+        <span>NVIDIA CUDA下載安裝</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#NVIDIA-CUDA下載">
+        <span class="has-mr-6">2.3.1</span>
+        <span>NVIDIA CUDA下載</span>
+        </a></li><li>
+        <a class="is-flex" href="#NVIDIA-CUDA安裝">
+        <span class="has-mr-6">2.3.2</span>
+        <span>NVIDIA CUDA安裝</span>
+        </a></li></ul></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/webberkuo.github.io/">
+                
+                    <img src="/webberkuo.github.io/images/logo.png" alt="Ubuntu CUDA Install (Ubuntu 18.04)" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Webber.Kuo&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+                <!-- start -->
+                <span id="busuanzi_container_site_uv">
+                    感謝
+                    <span id="busuanzi_value_site_uv">0</span>
+                    位讀者
+                </span>
+                <span id="busuanzi_container_site_pv">
+                    <span id="busuanzi_value_site_pv">0</span>
+                    次來訪
+                </span>
+                </p>
+                <!--  end  -->
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/WebberKuo/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://webberkuo.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/webberkuo.github.io/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/webberkuo.github.io/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/webberkuo.github.io/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/webberkuo.github.io/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/webberkuo.github.io/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/webberkuo.github.io/js/insight.js" defer></script>
+<link rel="stylesheet" href="/webberkuo.github.io/css/search.css">
+<link rel="stylesheet" href="/webberkuo.github.io/css/insight.css">
+    
+</body>
+</html>
